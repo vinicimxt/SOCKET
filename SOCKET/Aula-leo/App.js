@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable } from "react-native";
-import { StyleSheet , View , Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { TextInput } from "react-native-web";
 import socket from "./socket";
 
-export default function App () {
 
-  const [room, setRoom] = useState('default');
+export default function App() {
+
+  const [room, setRoom] = useState('Enviar');
   const [message, setMessage] = useState('');
   const [receivedMessage, setReceivedMessage] = useState('');
 
+ 
   const sendMessage = () => {
-    socket.emit('send_message', {room, message});
+    socket.emit('send_message', { room, message });
     setMessage('');
   };
 
@@ -27,9 +29,12 @@ export default function App () {
     }
   }, [room])
 
-  return(
+  //-------------------------------------------------------------------------------------------------------------------
+
+
+  return (
     <View style={styles.container}>
-      <Text style={styles.title}>Canal: {room}</Text>
+      <Text style={styles.title}>Chris Brow: {room}</Text>
 
       <TextInput
         placeholder='Digite sua mensagem'
@@ -43,10 +48,36 @@ export default function App () {
       </Pressable>
 
       <Text style={styles.receivedMessageTitle}>Mensagem recebida:</Text>
-      <Text style={styles.receivedMessage}>{ receivedMessage || 'Nenhuma mensagem recebida'}</Text>
+      <Text style={styles.receivedMessage}>{receivedMessage || 'Nenhuma mensagem recebida'}</Text>
+      
+
+      <br></br> <br></br> <br></br>
+
+      <View style={styles.separator}></View>
+
+      <br></br> <br></br> <br></br>
+
+      <Text style={styles.title}>Rihanna: {room}</Text>
+
+      <TextInput
+        placeholder='Digite sua mensagem'
+        value={message}
+        onChangeText={setMessage}
+        style={styles.input}
+      />
+
+      <Pressable style={styles.button} onPress={sendMessage}>
+        <Text style={styles.buttonText}>Enviar mensagem</Text>
+      </Pressable>
+
+      <Text style={styles.receivedMessageTitle}>Mensagem recebida:</Text>
+      <Text style={styles.receivedMessage}>{receivedMessage || 'Nenhuma mensagem recebida'}</Text>
+
     </View>
+
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -62,30 +93,30 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   input: {
-    height:50,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom:20 ,
+    marginBottom: 20,
     backgroundColor: '#fff'
   },
   button: {
-    backgroundColor: '#4CAF50' ,
+    backgroundColor: '#4CAF50',
     paddingVertical: 15,
     borderRadius: 5,
-    alignItems: 'center' ,
+    alignItems: 'center',
     marginBottom: 20
   },
-  buttonText:{
-    color: '#fff' ,
+  buttonText: {
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold'
   },
   receivedMessageTitle: {
-    fontSize:16,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginTop:20,
+    marginTop: 20,
     textAlign: 'center'
   },
   receivedMessage: {
@@ -94,7 +125,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     backgroundColor: '#e8e8e8',
-    borderRadius:5,
-    textAlign:'center'
-    }
+    borderRadius: 5,
+    textAlign: 'center'
+  },
+  separator: {
+    backgroundColor: '#000000',
+    padding: 30
+  }
+
 });
+
